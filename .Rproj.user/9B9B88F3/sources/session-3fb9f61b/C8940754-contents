@@ -1,6 +1,18 @@
-# 
+### Overview
 
-Add topic background and references, overview of goals, description of the datasets used
+In our quest to understand the evolving landscape of southern Santa Barbara County, we turn to the precision of remote sensing. Through this, we aim to map the land cover accurately using the Landsat satellite's capabilities to discern distinct material types by their spectral signatures.
+
+Our approach is methodical, employing a supervised classification technique with a decision tree classifier---a tool that learns to identify land cover categories based on examples we provide. This is a deliberate and informed process, where we train our model with specific data points that are known quantities, thereby allowing the algorithm to apply these learnings to classify a larger area.
+
+The end goal is straightforward: to create a clear and accurate land cover classification map of the study area. This map will serve as a factual foundation for monitoring environmental changes and guiding decisions in land management and policy. By ensuring each pixel in the Landsat imagery is correctly classified, we aspire to produce a map that is as informative as it is functional."
+
+#### Data
+
+In our analysis, we utilize imagery from the Landsat 5 Thematic Mapper, specifically selecting a scene from September 25, 2007, which encompasses bands 1 through 5 and 7. This data is part of the Collection 2 surface reflectance product, ensuring a consistent and calibrated measure of the Earth's surface reflectivity.
+
+The study's geographical focus is on the southern region of Santa Barbara County, delineated by a polygonal boundary within which our analysis is contained. Supplementing this are additional polygons that mark the training sites, each tagged with a specific land cover type as a character string. This training data is fundamental to informing the supervised classification process, allowing the decision tree model to learn and thereafter predict land cover types across the broader landscape.
+
+ADD CITATION
 
 First, let's import the necessary libraries
 
