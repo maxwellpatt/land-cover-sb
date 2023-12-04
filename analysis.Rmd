@@ -52,7 +52,11 @@ study_area <- st_read(here("data/SB_county_south.shp"))
 study_area <- st_transform(study_area, crs = crs(landsat_20070925))
 ```
 
-Nice. Now, cropping the Landsat data to the study area will create for a more concise visualization and also saves computational capacity. ADD SOMETHING ABOUT MASKING
+Nice. Now, focusing our analysis on a specific geographic region is key to obtaining more relevant and meaningful insights. Cropping the Landsat data to our study area, specifically southern Santa Barbara County, provides a more concise visualization by directly targeting the area of interest. This step is critical for economizing computational resources, ensuring we're working with data that's most pertinent to our objectives without overburdening our processing capabilities.
+
+Moreover, the process of masking is an essential next step. After cropping the Landsat data, masking helps us to further refine our dataset. By applying this mask, we effectively focus on only the data points that fall within the boundaries of our study area. This precision is crucial as it eliminates any extraneous information that might obscure our analysis, ensuring that every bit of data we examine is directly related to our study area. It's about enhancing the specificity of our dataset, ensuring that our analysis is as targeted and relevant as possible.
+
+To keep the workspace organized and efficient, we also perform some necessary housekeeping. Removing objects like the original Landsat data and the intermediate cropped version helps maintain a streamlined working environment. It's all about focus and efficiency -- by keeping our workspace clutter-free, we pave the way for a more insightful and focused analysis.
 
 ```{r}
 # crop Landsat to the extent of SB county
@@ -67,9 +71,9 @@ rm(landsat_20070925, study_area, landsat_cropped)
 
 ### Reflectance Conversion 
 
-The next step in the analysis involves converting the raster sstack values to correspond to reflectance values. This entails removing potentially erroneous values and applying a scale factor to convert to reflectance. ADD A SENTENCE ON WHAT THIS MEANS.
+The next step in the analysis involves converting the raster stack values to correspond to reflectance values. This entails removing potentially erroneous values and applying a scale factor to convert to reflectance. This process is critical as it ensures that the satellite image data accurately represent the reflectivity of different surfaces on the earth. Reflectance values are pivotal in distinguishing between various land cover types because each type reflects light in a unique way. By converting to reflectance, we're effectively translating raw satellite data into a format that mirrors how light interacts with different surfaces on the ground.
 
-We are working with Landsat data, which has a valid range of pixel values that have a multiplicative scale factor of 0.0000275 and a scale factor of -0.2. This piece of analysis will label erroneous values as NA and update the values for each pixel based on the scaling factor conversion. This will generate pixel values from 0 to 100 percent.
+We are working with Landsat data, which has a valid range of pixel values that have a multiplicative scale factor of 0.0000275 and a scale factor of -0.2. This piece of analysis will label erroneous values as NA and update the values for each pixel based on the scaling factor conversion. By doing so, we're filtering out any data points that don't fit within the expected range of values, ensuring the integrity and reliability of our dataset. The scaling factor adjustment is a crucial step in normalizing the data, allowing us to compare and analyze different regions accurately. After this conversion, the pixel values will represent percentages, ranging from 0 to 100 percent, reflecting a complete spectrum of possible reflectance. This range provides a standardized framework for analyzing the satellite imagery, enabling us to derive meaningful and accurate interpretations of the land cover.
 
 ```{r}
 # reclassify erroneous values as NA
@@ -93,7 +97,9 @@ Looks good! We can move on to the next section of the analysis.
 
 ### Training Data Extraction and Model Training
 
-Next, we will load in the study area shapefile that contains each of the four land cover types. Then, the spectral values at each site will be extracted to create a dataframe that pairs land cover types to spectral reflectance. ADD MORE. DISCUSS LEFT JOIN
+In this phase, we load and align the shapefile containing predefined land cover types with the Landsat data. This alignment is critical to ensure spatial consistency for accurate extraction of spectral values. We then extract these values from the Landsat imagery at locations marked in the training data, creating a dataframe that links each land cover type with its corresponding spectral reflectance.
+
+By performing a `left_join`, we merge these spectral values with additional attributes from the training data. This step enriches our dataset, combining essential spectral information with land cover classifications. Finally, we convert the land cover types into factors, preparing the dataset for effective use in the decision tree classification algorithm. This process sets the stage for training a model that can accurately classify the entire Landsat scene based on the relationships it learns between spectral data and land cover types.
 
 ```{r}
 # read in and transform CRS of training data
@@ -131,7 +137,11 @@ sb_tree <- rpart(formula = sb_formula,
 prp(sb_tree)
 ```
 
-Neat! ADD HOW THIS CAN BE INTERPRETED.
+Neat! The decision tree generated from the provided code offers a visual representation of the classification rules derived from the training data. Starting at the root, the tree uses the Near-Infrared (NIR) spectral band to make the initial split: if NIR reflectance is equal to or greater than 4.2, we move to the left side of the tree, otherwise, we classify the pixel as 'water'.
+
+On the left branch, the tree further refines the classification by considering the red band. If red reflectance is less than 7.4, the decision process continues down this path, eventually utilizing the green band and NIR again to distinguish between 'green_ve' (green vegetation) and 'soil_dea' (soil or dead grass). If the red reflectance is greater than or equal to 7.4, the Short-Wave Infrared 1 (SWIR1) band is used to differentiate 'urban' areas from 'soil_dea' or 'urban' again, depending on the green band's reflectance value.
+
+This decision tree model is intuitive, as it mirrors the natural process of elimination and categorization that a human expert might use, considering one variable at a time. NIR is typically associated with vegetation, as healthy plants reflect more NIR than other land cover types. The red band is often used to detect chlorophyll absorption, thus indicating vegetation. The SWIR bands are useful for distinguishing between moisture levels in soil and vegetation, and can also be indicative of urban materials. By applying these successive decisions based on spectral reflectance values, we can systematically classify the landscape into the four desired land cover categories.
 
 ### Image Classification and Results
 
@@ -145,7 +155,7 @@ sb_class <- predict(landsat, sb_tree, type = "class", na.rm = TRUE)
 levels(sb_training_data$type)
 ```
 
-Great, this output makes sense. ADD MORE ABOUT LEVELS OUTPUT.
+This output reveals the categorical levels that the decision tree model has used to classify the land cover types. The four levels---"green_vegetation," "soil_dead_grass," "urban," and "water"---correspond to the land cover classes present in our training data. These classes will be used to label the pixels in the classified image, assigning each pixel to one of these categories based on the spectral data and the classification rules learned during the model training phase. The order of these levels is significant as it relates directly to the integer values that will be used in the classified raster, providing a clear reference for interpreting the final land cover map.
 
 Now, let's plot the final results and check out the map.
 

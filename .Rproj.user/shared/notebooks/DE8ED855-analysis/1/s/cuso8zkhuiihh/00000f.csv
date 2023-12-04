@@ -1,8 +1,0 @@
-"0","# crop Landsat to the extent of SB county"
-"0","landsat_cropped <- crop(landsat_20070925, study_area)"
-"0",""
-"0","# mask the raster "
-"0","landsat_masked <- mask(landsat_cropped, study_area)"
-"0",""
-"0","# clean up environment by removing unecessary object"
-"0","rm(landsat_20070925, study_area, landsat_cropped)"
