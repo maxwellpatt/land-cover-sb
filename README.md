@@ -1,33 +1,34 @@
 # Land Cover Classification in Southern Santa Barbara County Using Decision Trees
 
 ### Overview
-This project demonstrates the application of a decision tree classifier for land cover classification in Southern Santa Barbara County. Utilizing multi-spectral imagery and data on specific land cover types, we can understand how land cover changes over time. This method is particularly effective in studying the impacts of various environmental changes, such as urbanization, deforestation, and climate change.
+This repository details a project where decision tree classifiers are applied for systematic land cover mapping in Southern Santa Barbara County. The goal is to analyze land cover dynamics using Landsat 5 TM imagery, providing insights into environmental patterns and changes over time, such as urban expansion, vegetation changes, and water body distributions.
 
 ### Objectives
-The main objective is to classify a Landsat scene into four primary land cover types:
+The central aim of this project is a detailed classification of a single Landsat scene, dated September 25, 2007, into four distinct land cover categories:
 - Green vegetation
 - Dry grass or soil
-- Urban areas
+- Urban development
 - Water bodies
-We achieve this by employing supervised classification techniques, specifically decision tree classifiers. These classifiers use training data to create a model that can predict land cover types based on spectral information from satellite images.
+This is accomplished through a supervised machine learning approach, leveraging the capabilities of decision tree classifiers that are informed by specific spectral signatures corresponding to each land cover type.
 
 ### Data and Tools
-- Satellite Imagery: Landsat 5 Thematic Mapper scene from September 25, 2007, including bands 1, 2, 3, 4, 5, and 7
-- Software and Libraries: We use R for processing and analyzing the data, with specific packages like sf, terra, rpart, rpart.plot, and tmap
-- Training Data: Geospatial data of Southern Santa Barbara County and polygons representing training sites for the different land cover types
+The project utilizes the following datasets and tools:
+- Landsat Imagery: Landsat 5 TM scene encompassing bands 1-5 and 7, offering a comprehensive spectral view of the region
+- Computational Tools: R is our chosen environment for data processing, with an ensemble of packages (sf, terra, rpart, rpart.plot, tmap) facilitating our workflows
+- Training Dataset: Defined by geospatial polygons that represent various land cover types, serving as a reference for our classification algorithm
 
-### Workflow
-1. Data reparation
-- Load and process Landsat data
-- Crop and mask the data to focus on the study area
-- Convert Landsat values to reflectance, ensuring accurate representation of the land cover
+### Methodology
+1. Data Preparation:
+- Ingest and process the Landsat scene
+- Crop and mask the imagery to our study area to optimize the analysis
+- Convert digital number values to reflectance for a true representation of surface characteristics
 
-2. Land cover classification
-- Extract reflectance values at specific training sites
-- Develop a decision tree model using the rpart package
-- Apply the trained model to classify the entire Landsat scene into different land cover types
+2. Classification Pipeline:
+- Extract spectral data from known land cover training sites
+- Construct and train a decision tree model to discern land cover types based on spectral data
+- Apply the model across the Landsat scene, segmenting the landscape into the predefined categories
 
-3. Visualization and analysis
-- Visualize the classified map using color codes for different land cover types
-- Analyze the distribution and characteristics of each land cover type within the study area
+3. Visualization and Interpretation:
+- Present the classification output through thematic mapping
+- Examine and discuss the spatial distribution of the land cover classes within the context of the study area
 
