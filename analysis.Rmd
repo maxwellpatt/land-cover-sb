@@ -6,19 +6,21 @@ date: "`r Sys.Date()`"
 
 ### Overview
 
-In our quest to understand the evolving landscape of southern Santa Barbara County, we turn to the precision of remote sensing. Through this, we aim to map the land cover accurately using the Landsat satellite's capabilities to discern distinct material types by their spectral signatures.
+In our quest to understand the evolving landscape of southern Santa Barbara County, we turn to the precision of remote sensing. Using this powerful technology, we will map the land cover accurately using the Landsat satellite's capabilities to discern distinct material types by their spectral signatures.
 
-Our approach is methodical, employing a supervised classification technique with a decision tree classifier---a tool that learns to identify land cover categories based on examples we provide. This is a deliberate and informed process, where we train our model with specific data points that are known quantities, thereby allowing the algorithm to apply these learnings to classify a larger area.
+The approach to this analysis employs a supervised classification technique with a decision tree classifier---a super handy tool that learns to identify land cover categories based on examples we provide, or training data for short. This is a deliberate and informed process, where we train the model with specific , known data points, which in turn allows the algorithm to apply patterns to classify a larger, more ambiguous area.
 
-The end goal is straightforward: to create a clear and accurate land cover classification map of the study area. This map will serve as a factual foundation for monitoring environmental changes and guiding decisions in land management and policy. By ensuring each pixel in the Landsat imagery is correctly classified, we aspire to produce a map that is as informative as it is functional."
+The end goal is to create a clear and accurate land cover classification map of the study area. This map will serve as a foundation for monitoring environmental changes and guiding decisions in land management and policy. By ensuring each pixel in the Landsat imagery is correctly classified, we aspire to produce a map that is as informative as it is functional.
 
 #### Data
 
-In our analysis, we utilize imagery from the Landsat 5 Thematic Mapper, specifically selecting a scene from September 25, 2007, which encompasses bands 1 through 5 and 7. This data is part of the Collection 2 surface reflectance product, ensuring a consistent and calibrated measure of the Earth's surface reflectivity.
+In the analysis, we utilize imagery from the Landsat 5 Thematic Mapper, specifically selecting a scene from September 25, 2007, which encompasses bands 1 through 5 and 7. This data is part of the Collection 2 surface reflectance product, ensuring a consistent and calibrated measure of the Earth's surface reflectivity.
 
 The study's geographical focus is on the southern region of Santa Barbara County, delineated by a polygonal boundary within which our analysis is contained. Supplementing this are additional polygons that mark the training sites, each tagged with a specific land cover type as a character string. This training data is fundamental to informing the supervised classification process, allowing the decision tree model to learn and thereafter predict land cover types across the broader landscape.
 
-ADD CITATION
+Landsat data: \"Landsat 5.\" Landsat 5 \| U.S. Geological Survey. Accessed December 5, 2023. <https://www.usgs.gov/landsat-missions/landsat-5.>
+
+Shapefile data: \"Shapefiles.\" Shapefiles-ArcGIS \| Documentation. Accessed December 5, 2023. <https://doc.arcgis.com/en/arcgis-online/reference/shapefiles.htm.>
 
 First, let's import the necessary libraries
 
@@ -34,14 +36,13 @@ library(tmap)
 
 # clearing the environment for a fresh start
 rm(list = ls())
-
 ```
 
 ### Data Processing and Preparation
 
 This section involves preparing the Landsat data and study area for analysis.
 
-First, let's create a raster stack using the 6 bands we will be working with in this analysis, update the layer names, and plot a true color image to visualize the data.
+First, let's create a raster stack using the 6 bands we will be working with in this analysis, update the layer names, and plot a true color image to visualize the data. These bands include blue, green and red colors, along with NIR and two SWIR (short-wave infrared) layers.
 
 ```{r}
 # list the files for eahc band
@@ -74,7 +75,7 @@ Nice. Now, focusing our analysis on a specific geographic region is key to obtai
 
 Moreover, the process of masking is an essential next step. After cropping the Landsat data, masking helps us to further refine our dataset. By applying this mask, we effectively focus on only the data points that fall within the boundaries of our study area. This precision is crucial as it eliminates any extraneous information that might obscure our analysis, ensuring that every bit of data we examine is directly related to our study area. It's about enhancing the specificity of our dataset, ensuring that our analysis is as targeted and relevant as possible.
 
-To keep the workspace organized and efficient, we also perform some necessary housekeeping. Removing objects like the original Landsat data and the intermediate cropped version helps maintain a streamlined working environment. It's all about focus and efficiency -- by keeping our workspace clutter-free, we pave the way for a more insightful and focused analysis.
+To keep the workspace organized and efficient, we also perform some housekeeping. Removing objects like the original Landsat data and the intermediate cropped version helps maintain a streamlined working environment.
 
 ```{r}
 # crop Landsat to the extent of SB county
@@ -91,9 +92,9 @@ rm(landsat_20070925, study_area, landsat_cropped)
 
 The next step in the analysis involves converting the raster stack values to correspond to reflectance values. This entails removing potentially erroneous values and applying a scale factor to convert to reflectance. This process is critical as it ensures that the satellite image data accurately represent the reflectivity of different surfaces on the earth. Reflectance values are pivotal in distinguishing between various land cover types because each type reflects light in a unique way. By converting to reflectance, we're effectively translating raw satellite data into a format that mirrors how light interacts with different surfaces on the ground.
 
-We are working with Landsat data, which has a valid range of pixel values that have a multiplicative scale factor of 0.0000275 and a scale factor of -0.2. This piece of analysis will label erroneous values as NA and update the values for each pixel based on the scaling factor conversion. By doing so, we're filtering out any data points that don't fit within the expected range of values, ensuring the integrity and reliability of our dataset. The scaling factor adjustment is a crucial step in normalizing the data, allowing us to compare and analyze different regions accurately. After this conversion, the pixel values will represent percentages, ranging from 0 to 100 percent, reflecting a complete spectrum of possible reflectance. This range provides a standardized framework for analyzing the satellite imagery, enabling us to derive meaningful and accurate interpretations of the land cover.
+We are working with Landsat data, which has a valid range of pixel values that have a multiplicative scale factor of 0.0000275 and a scale factor of -0.2. This piece of analysis will label erroneous values as NA and update the values for each pixel based on the scaling factor conversion. By doing so, we're filtering out any data points that don't fit within the expected range of values, ensuring the integrity and reliability of our dataset. The scaling factor adjustment is a crucial step in normalizing the data, allowing us to compare and analyze different regions accurately. After this conversion, the pixel values will represent percentages, ranging from 0 to 100 percent, reflecting a complete spectrum of possible reflectance. This range provides a standardized framework for analyzing the satellite imagery.
 
-```{r}
+```{r, warning=FALSE}
 # reclassify erroneous values as NA
 rcl <- matrix(c(-Inf, 7273, NA,
                  43636, Inf, NA), ncol = 3, byrow = TRUE)
@@ -177,7 +178,7 @@ This output reveals the categorical levels that the decision tree model has used
 
 Now, let's plot the final results and check out the map.
 
-```{r}
+```{r, message=FALSE}
 # plot results
 tm_shape(sb_class) + 
   tm_raster(
@@ -192,3 +193,5 @@ tm_shape(sb_class) +
     title.size = 1
   )
 ```
+
+This final land cover classification map stands as a testament to the accuracy and validity of the approach. It offers insights for environmental monitoring, land management, and policy-making. By ensuring careful classification of each individual pixel, the project delivers a map that is not only informative but also practical.
