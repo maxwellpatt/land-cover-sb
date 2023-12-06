@@ -1,5 +1,5 @@
 ---
-title: "Title"
+title: "Santa Barbara Land Cover Classification"
 author: "Maxwell Patterson"
 date: "`r Sys.Date()`"
 ---
