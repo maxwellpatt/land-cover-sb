@@ -11,6 +11,8 @@ The central aim of this project is a detailed classification of a single Landsat
 - Water bodies
 This is accomplished through a supervised machine learning approach, leveraging the capabilities of decision tree classifiers that are informed by specific spectral signatures corresponding to each land cover type.
 
+### Contents
+
 ### Data and Tools
 The project utilizes the following datasets and tools:
 - Landsat Imagery: Landsat 5 TM scene encompassing bands 1-5 and 7, offering a comprehensive spectral view of the region
