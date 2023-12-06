@@ -1,9 +1,0 @@
-"0","# plot results"
-"0","tm_shape(sb_class) +"
-"0","  tm_raster(col.scale = tm_scale_categorical(values = c(""#8DB580"", ""#F2DDA4"", ""#7E8987"", ""#6A8EAE"")),"
-"0","            col.legend = tm_legend(labels = c(""green vegetation"", ""soil/dead grass"", ""urban"", ""water""),"
-"0","                                   title = ""Landcover type"")) +"
-"0","  tm_layout(legend.position = c(""left"", ""bottom""))"
-"2","Error in tm_raster(col.scale = tm_scale_categorical(values = c(""#8DB580"",  : 
-  unused arguments (col.scale = tm_scale_categorical(values = c(""#8DB580"", ""#F2DDA4"", ""#7E8987"", ""#6A8EAE"")), col.legend = tm_legend(labels = c(""green vegetation"", ""soil/dead grass"", ""urban"", ""water""), title = ""Landcover type""))
-"
