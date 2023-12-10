@@ -31,13 +31,13 @@ This is accomplished through a supervised machine learning approach, leveraging 
 ### Data and Tools
 The project utilizes the following datasets and tools:
 - Landsat Imagery: Landsat 5 TM scene encompassing bands 1-5 and 7, offering a comprehensive spectral view of the region
-- Computational Tools: R is our chosen environment for data processing, with an ensemble of packages (sf, terra, rpart, rpart.plot, tmap) facilitating our workflows
+- Computational Tools: R is our chosen environment for data processing; sf, terra, rpart, rpart.plot, tmap
 - Training Dataset: Defined by geospatial polygons that represent various land cover types, serving as a reference for our classification algorithm
 
 ### Methodology
 1. Data Preparation:
 - Ingest and process the Landsat scene
-- Crop and mask the imagery to our study area to optimize the analysis
+- Crop and mask the imagery to our study area 
 - Convert digital number values to reflectance for a true representation of surface characteristics
 
 2. Classification Pipeline:
@@ -46,6 +46,5 @@ The project utilizes the following datasets and tools:
 - Apply the model across the Landsat scene, segmenting the landscape into the predefined categories
 
 3. Visualization and Interpretation:
-- Present the classification output through thematic mapping
-- Examine and discuss the spatial distribution of the land cover classes within the context of the study area
+- Present the classification output 
 
