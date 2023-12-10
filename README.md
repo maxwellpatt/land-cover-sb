@@ -13,6 +13,19 @@ This is accomplished through a supervised machine learning approach, leveraging 
 
 ### Contents
 
+### Repository Contents
+├── data 
+│ ├── landsat-data 
+│ ├── trainingdata
+│ └── SB_county_south
+├── analysis.RMD
+├── analysis.html
+├── .RData
+├── .Rhistory
+├── README.md 
+└── .gitignore 
+
+
 ### Data and Tools
 The project utilizes the following datasets and tools:
 - Landsat Imagery: Landsat 5 TM scene encompassing bands 1-5 and 7, offering a comprehensive spectral view of the region
