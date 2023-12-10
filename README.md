@@ -14,6 +14,7 @@ This is accomplished through a supervised machine learning approach, leveraging 
 ### Contents
 
 ### Repository Contents
+```
 ├── data 
 │ ├── landsat-data 
 │ ├── trainingdata
@@ -23,7 +24,8 @@ This is accomplished through a supervised machine learning approach, leveraging 
 ├── .RData
 ├── .Rhistory
 ├── README.md 
-└── .gitignore 
+└── .gitignore
+```
 
 
 ### Data and Tools
