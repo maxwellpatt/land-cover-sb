@@ -8,7 +8,7 @@ date: "`r Sys.Date()`"
 
 In our quest to understand the evolving landscape of southern Santa Barbara County, we turn to the precision of remote sensing. Using this powerful technology, we will map the land cover accurately using the Landsat satellite's capabilities to discern distinct material types by their spectral signatures.
 
-The approach to this analysis employs a supervised classification technique with a decision tree classifier---a super handy tool that learns to identify land cover categories based on examples we provide, or training data for short. This is a deliberate process, where we train the model with specific, known data points, which in turn allows the algorithm to apply patterns to classify a larger, more ambiguous area.
+The approach to this analysis employs a supervised classification technique with a decision tree classifier---a handy tool that learns to identify land cover categories based on provided examples, or training data. This is a deliberate process, where we train the model with specific data points, which allows the algorithm to apply patterns to classify a larger, more ambiguous area.
 
 The end goal is to create a clear and accurate land cover classification map of Santa Barbara. This map will serve as a foundation for monitoring environmental changes and guiding decisions in land management and policy. By ensuring each pixel in the Landsat imagery is correctly classified, we aspire to produce a map that is as informative as it is functional.
 
@@ -16,7 +16,7 @@ The end goal is to create a clear and accurate land cover classification map of 
 
 In the analysis, we utilize imagery from the Landsat 5 Thematic Mapper, specifically selecting a scene from September 25, 2007, which encompasses bands 1 through 5 and 7. This data is part of the Collection 2 surface reflectance product, ensuring a consistent and calibrated measure of the Earth's surface reflectivity.
 
-The study's geographical focus is on the southern region of Santa Barbara County, delineated by a polygonal boundary within which our analysis is contained. Supplementing this are additional polygons that mark the training sites, each tagged with a specific land cover type as a character string. This training data is fundamental to informing the supervised classification process, allowing the decision tree model to learn and thereafter predict land cover types across the landscape.
+The study's focus is on the southern region of Santa Barbara County, delineated by a polygonal boundary within which our analysis is contained. Supplementing this are additional polygons that mark the training sites, each tagged with a specific land cover type as a character string. This training data is fundamental to informing the supervised classification process, allowing the decision tree model to learn and thereafter predict land cover types across the landscape.
 
 Landsat data: "Landsat 5." Landsat 5 \| U.S. Geological Survey. Accessed December 5, 2023. <https://www.usgs.gov/landsat-missions/landsat-5.>
 
