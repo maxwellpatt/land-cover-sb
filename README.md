@@ -33,6 +33,7 @@ The project utilizes the following datasets and tools:
 - Landsat Imagery: Landsat 5 TM scene encompassing bands 1-5 and 7, offering a comprehensive spectral view of the region
 - Computational Tools: R is our chosen environment for data processing; sf, terra, rpart, rpart.plot, tmap
 - Training Dataset: Defined by geospatial polygons that represent various land cover types, serving as a reference for our classification algorithm
+Data are included in the .gitignore due to large size.
 
 ### Methodology
 1. Data Preparation:
