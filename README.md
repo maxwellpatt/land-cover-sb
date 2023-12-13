@@ -35,6 +35,12 @@ The project utilizes the following datasets and tools:
 - Training Dataset: Defined by geospatial polygons that represent various land cover types, serving as a reference for our classification algorithm
 Data are included in the .gitignore due to large size.
 
+Data are stored in the .gitignore and can be accessed through this link: https://drive.google.com/file/d/1e9ZwWoC6kmqy5r7WtDOkabYa02jMx_sd/view
+
+Landsat data: "Landsat 5." Landsat 5 \| U.S. Geological Survey. Accessed December 5, 2023. <https://www.usgs.gov/landsat-missions/landsat-5.>
+
+Shapefile data: "Shapefiles." Shapefiles-ArcGIS \| Documentation. Accessed December 5, 2023. <https://doc.arcgis.com/en/arcgis-online/reference/shapefiles.htm.>
+
 ### Methodology
 1. Data Preparation:
 - Ingest and process the Landsat scene
